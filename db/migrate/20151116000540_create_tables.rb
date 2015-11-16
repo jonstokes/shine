@@ -32,7 +32,7 @@ class CreateTables < ActiveRecord::Migration
     create_table :categories, id: :uuid do |t|
       t.string :contentful_id, null: false
 
-      t.string :title          null: false
+      t.string :title,         null: false
       t.text   :short_description
       t.jsonb  :icon
 
@@ -40,7 +40,7 @@ class CreateTables < ActiveRecord::Migration
     end
     add_index "categories", ["contentful_id"], name: "index_categories_on_contentful_id", using: :btree
 
-    create_table :author_post, id: :uuid do |t|
+    create_table :author_posts, id: :uuid do |t|
       t.uuid :author_id
       t.uuid :post_id
 
@@ -49,13 +49,13 @@ class CreateTables < ActiveRecord::Migration
     add_index "author_posts", ["author_id"], name: "index_author_posts_on_author_id", using: :btree
     add_index "author_posts", ["post_id"], name: "index_author_posts_on_post_id", using: :btree
 
-    create_table :category_post, id: :uuid do |t|
+    create_table :category_posts, id: :uuid do |t|
       t.uuid :category_id
       t.uuid :post_id
 
       t.timestamps
     end
-    add_index "category_posts", ["author_id"], name: "index_category_posts_on_author_id", using: :btree
+    add_index "category_posts", ["category_id"], name: "index_category_posts_on_author_id", using: :btree
     add_index "category_posts", ["post_id"], name: "index_category_posts_on_post_id", using: :btree
   end
 end
