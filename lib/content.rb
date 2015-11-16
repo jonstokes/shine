@@ -1,14 +1,16 @@
 module Content
   def self.sync!
     client.sync.each_item do |entry|
-      klass = if entry.fields[:name]
-        Author
-      elsif entry.fields[:slug]
+      klass = case entry.content_type.id
+      when Post.contenful_id
         Post
-      else
+      when Author.contenful_id
+        Author
+      when Category.contenful_id
         Category
       end
-      klass.create_or_update_from_entry(entry)
+
+      klass.upsert_from_entry(entry)
     end
   end
 
@@ -18,5 +20,9 @@ module Content
       space:        Figaro.env.contentful_space,
       api_url:      Figaro.env.contentful_api_url
     )
+  end
+
+  def self.extract_asset(asset)
+    asset.fields[:file].properties
   end
 end
