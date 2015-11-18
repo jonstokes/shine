@@ -1,0 +1,43 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "rwvjblw7dr6a"
+      }
+    },
+    "type": "Entry",
+    "contentType": {
+      "sys": {
+        "type": "Link",
+        "linkType": "ContentType",
+        "id": "1kUEViTN4EmGiEaaeC6ouY"
+      }
+    },
+    "id": "3kTFGSVVi86OGOcA6ckqsk",
+    "revision": 1,
+    "createdAt": "2015-11-17T18:33:16.945Z",
+    "updatedAt": "2015-11-17T18:33:16.945Z"
+  },
+  "fields": {
+    "name": {
+      "en-US": "Jon Stokes"
+    },
+    "website": {
+      "en-US": "http://jonstokes.com"
+    },
+    "profilePhoto": {
+      "en-US": {
+        "sys": {
+          "type": "Link",
+          "linkType": "Asset",
+          "id": "2ReMHJhXoAcy4AyamgsgwQ"
+        }
+      }
+    },
+    "biography": {
+      "en-US": "Jon Stokes is a swell guy."
+    }
+  }
+}

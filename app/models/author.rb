@@ -1,10 +1,29 @@
 class Author < ActiveRecord::Base
-  def self.hash_from_entry(author)
-    {
-      name: author.fields[:name],
-      website: author.fields[:website],
-      biography: author.fields[:biography],
-      profile_photo: extract_asset(author.fields[:profilePhoto])
-    }
+  module Mapper
+    def to_hash
+      {
+        cid:               cid,
+        name:              field(:name),
+        website:           field(:website),
+        biography:         field(:biography),
+        profile_photo_cid: extract_object_cid(field(:profilePhoto))
+      }
+    end
+  end
+
+  class ObjectMapper < ::ObjectMapper
+    include Author::Mapper
+  end
+
+  class RequestMapper < ::RequestMapper
+    include Author::Mapper
+  end
+
+  include Syncable
+
+  validates :name, presence: true
+
+  def posts
+    Post.where("'#{cid}' = ANY(author_cids)")
   end
 end

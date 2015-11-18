@@ -1,0 +1,17 @@
+{
+  "sys": {
+    "type": "DeletedEntry",
+    "id": "4Zk6ihvUM8Y0GcYiY24sq",
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "rwvjblw7dr6a"
+      }
+    },
+    "revision": 1,
+    "createdAt": "2015-11-17T18:35:40.127Z",
+    "updatedAt": "2015-11-17T18:35:40.127Z",
+    "deletedAt": "2015-11-17T18:35:40.127Z"
+  }
+}

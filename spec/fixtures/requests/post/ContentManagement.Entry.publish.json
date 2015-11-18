@@ -1,0 +1,77 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "rwvjblw7dr6a"
+      }
+    },
+    "type": "Entry",
+    "contentType": {
+      "sys": {
+        "type": "Link",
+        "linkType": "ContentType",
+        "id": "2wKn6yEnZewu2SCCkus4as"
+      }
+    },
+    "id": "2gUGl8pte0ug8QwoisiiI0",
+    "revision": 2,
+    "createdAt": "2015-11-16T22:07:42.940Z",
+    "updatedAt": "2015-11-17T18:25:11.148Z"
+  },
+  "fields": {
+    "slug": {
+      "en-US": "this-is-a-test-entry"
+    },
+    "title": {
+      "en-US": "This is a test entry"
+    },
+    "author": {
+      "en-US": [
+        {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "5JQ715oDQW68k8EiEuKOk8"
+          }
+        }
+      ]
+    },
+    "body": {
+      "en-US": "I am testing this entry.\n\n![Ernest Hemingway (1950)](//images.contentful.com/rwvjblw7dr6a/3S1ngcWajSia6I4sssQwyK/eacba4033620dcd5d36e985aa3271a55/Ernest_Hemingway_1950.jpg)\n\nThat is a picture of Papa."
+    },
+    "category": {
+      "en-US": [
+        {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6XL7nwqRZ6yEw0cUe4y0y6"
+          }
+        }
+      ]
+    },
+    "tags": {
+      "en-US": [
+        "foo",
+        "bar"
+      ]
+    },
+    "featuredImage": {
+      "en-US": {
+        "sys": {
+          "type": "Link",
+          "linkType": "Asset",
+          "id": "2ReMHJhXoAcy4AyamgsgwQ"
+        }
+      }
+    },
+    "date": {
+      "en-US": "2015-11-17"
+    },
+    "comments": {
+      "en-US": true
+    }
+  }
+}

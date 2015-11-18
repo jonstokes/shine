@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'figaro'
 gem 'contentful'
+gem 'troupe'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -25,5 +26,7 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem "database_cleaner", "~> 1.2"
 end
 

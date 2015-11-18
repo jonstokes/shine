@@ -1,29 +1,45 @@
 class Post < ActiveRecord::Base
-  validates :contentful_id, presence: true
-
-  def self.upsert_from_entry(entry)
-    if post = Post.find_by(contentful_id: entry.id)
-      post.update(hash_from_entry(entry))
-    else
-      create(hash_from_entry(entry))
+  module Mapper
+    def to_hash
+      {
+        cid:                cid,
+        title:              field(:title),
+        slug:               field(:slug),
+        author_cids:        extract_object_cids(field(:author)),
+        body:               field(:body),
+        category_cids:      extract_object_cids(field(:category)),
+        tags:               field(:tags),
+        featured_image_cid: extract_object_cid(field(:featuredImage)),
+        date:               field(:date),
+        comments:           field(:comments)
+      }
     end
   end
 
-  def self.contentful_id
-    @contentful_id ||= Figaro.env.author_id
+  class ObjectMapper < ::ObjectMapper
+    include Post::Mapper
   end
 
-  def self.hash_from_entry(post)
-    {
-      title:          post.fields[:title],
-      slug:           post.fields[:slug],
-      author:         post.fields[:author].map { |author| Author.hash_from_entry(author) },
-      body:           post.fields[:body],
-      category:       post.fields[:category].map { |category| Category.hash_from_entry(category) },
-      tags:           post.fields[:tags],
-      featured_image: Content.extract_asset(entry.fields[:featured_image]),
-      date:           post.fields[:date],
-      comments:       post.fields[:comments]
-    }
+  class RequestMapper < ::RequestMapper
+    include Post::Mapper
+  end
+
+  include Syncable
+
+  # Author & category data is cached with the post for speed
+  validates :author_cids, presence: true
+  validates :category_cids, presence: true
+  validates :title, :slug, :body, presence: true
+
+  def authors
+    Author.where(cid: author_cids)
+  end
+
+  def categories
+    Category.where(cid: category_cids)
+  end
+
+  def featured_image
+    Asset.find_by(cid: featured_image_cid)
   end
 end

@@ -1,18 +1,4 @@
 module Content
-  def self.sync!
-    client.sync.each_item do |entry|
-      klass = case entry.content_type.id
-      when Post.contenful_id
-        Post
-      when Author.contenful_id
-        Author
-      when Category.contenful_id
-        Category
-      end
-
-      klass.upsert_from_entry(entry)
-    end
-  end
 
   def self.client
     @client ||= Contentful::Client.new(
@@ -22,7 +8,32 @@ module Content
     )
   end
 
-  def self.extract_asset(asset)
-    asset.fields[:file].properties
+  def self.sync_each_item(initial: false)
+    Contentful.client.sync(initial: initial).each_item do |item|
+      yield item
+    end
+  end
+
+  def self.sync_each_deletion(initial: false)
+    Contentful.client.sync(initial: initial, type: 'Deletion').each_item do |item|
+      yield item
+    end
+  end
+
+  def self.locale
+    @locale ||= Figaro.env.locale
+  end
+
+  def self.cid_to_class_name(cid)
+    case cid
+    when Figaro.env.post_id
+      "Post"
+    when Figaro.env.author_id
+      "Author"
+    when Figaro.env.category_id
+      "Category"
+    else
+      "Asset"
+    end
   end
 end

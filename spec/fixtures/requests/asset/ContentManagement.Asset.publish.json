@@ -1,0 +1,38 @@
+{
+  "fields": {
+    "title": {
+      "en-US": "Jon Stokes headshot"
+    },
+    "description": {
+      "en-US": "My headshot from Wired"
+    },
+    "file": {
+      "en-US": {
+        "fileName": "headshot2.jpg",
+        "contentType": "image/jpeg",
+        "details": {
+          "image": {
+            "width": 402,
+            "height": 604
+          },
+          "size": 29962
+        },
+        "url": "//images.contentful.com/rwvjblw7dr6a/7BCHkLHgIMuGSg2SqCQyaK/d617beca0d5d5bc9fa7704be70883c12/headshot2.jpg"
+      }
+    }
+  },
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "rwvjblw7dr6a"
+      }
+    },
+    "type": "Asset",
+    "id": "7BCHkLHgIMuGSg2SqCQyaK",
+    "revision": 1,
+    "createdAt": "2015-11-17T18:36:51.669Z",
+    "updatedAt": "2015-11-17T18:36:51.669Z"
+  }
+}

@@ -5,3 +5,4 @@ CONTENTFUL_ACCESS_TOKEN: abc123
 AUTHOR_ID: abcdefg
 POST_ID: hijklmno
 CATEGORY_ID: pqrxtuv
+LOCALE: "en-US"
