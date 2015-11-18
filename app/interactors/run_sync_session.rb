@@ -12,7 +12,7 @@ class RunSyncSession
     # TODO: Lock the posts table for this
     # Upsert all the entries in the delta list to the db
     Content.sync_each_item(initial: initial) do |item|
-      content_type_id = item.respond_to?(:content_type) ? item.content_type.id : nil
+      content_type_id = item.try(:content_type) ? item.content_type.id : nil
       klass = Content.cid_to_class_name(content_type_id).constantize
       attrs = map_object(klass: klass, item: item)
       if record = klass.find_by(cid: attrs[:cid])
@@ -24,9 +24,9 @@ class RunSyncSession
 
     # Delete any deleted entries or assets
     Content.sync_each_deletion(initial: initial) do |item|
-      content_type_id = item.respond_to?(:content_type) ? item.content_type.id : nil
+      content_type_id = item.try(:content_type) ? item.content_type.id : nil
       klass = Content.cid_to_class_name(content_type_id).constantize
-      klass.find_by(cid: item.id).destroy
+      klass.find_by(cid: item.id).try(:destroy)
     end
 
     sync_session.update(status: "success")
