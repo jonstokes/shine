@@ -9,13 +9,13 @@ module Content
   end
 
   def self.sync_each_item(initial: false)
-    Contentful.client.sync(initial: initial).each_item do |item|
+    client.sync(initial: initial).each_item do |item|
       yield item
     end
   end
 
   def self.sync_each_deletion(initial: false)
-    Contentful.client.sync(initial: initial, type: 'Deletion').each_item do |item|
+    client.sync(initial: initial, type: 'Deletion').each_item do |item|
       yield item
     end
   end
