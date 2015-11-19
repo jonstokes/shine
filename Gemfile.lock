@@ -1,6 +1,8 @@
 PATH
   remote: ../../alloutdoor
   specs:
+    alloutdoor (0.0.1)
+      rails (~> 4.2.5)
 
 GEM
   remote: https://rubygems.org/

@@ -16,7 +16,6 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      slug = "#{params[:year]}/#{params[:month]}/#{params[:day]}/#{params[:slug]}"
-      @post = Post.find_by(slug: slug)
+      @post = Post.find(params[:id])
     end
 end

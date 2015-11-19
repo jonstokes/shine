@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount Alloutdoor::Engine => "/blog"
+
   root to: "posts#index"
 
   resources :categories, only: [:index, :show]
@@ -7,7 +9,4 @@ Rails.application.routes.draw do
   resources :posts, only: [:index, :show]
 
   post '/webhook' => 'contentful#webhook', defaults: { format: 'json' }
-
-  get "/:year/:month/:day/:slug" => "posts#show"
-
 end
