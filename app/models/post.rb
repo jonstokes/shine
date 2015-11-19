@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
       slug:               item[:slug],
       author_cids:        item[:author].map { |h| h['sys']['id'] },
       body:               item[:body],
-      category_cids:      item[:category].map { |h| h['sys']['id'] },,
+      category_cids:      item[:category].map { |h| h['sys']['id'] },
       tags:               item[:tags],
       featured_image_cid: item[:featuredImage]['sys']['id'],
       date:               item[:date],

@@ -1,5 +1,5 @@
-def load_source(type:, action:)
-  filename = if "asset" == type
+def load_request(type:, action:)
+  filename = if type == "asset"
     "ContentManagement.Asset.#{action}.json"
   else
     "ContentManagement.Entry.#{action}.json"
