@@ -1,37 +1,34 @@
 module Content
   class SyncRequest
-    attr_reader :next_sync_url
+    attr_reader :starting_sync_url
 
-    def initialize(mode='upsert')
-      @mode = mode
-      @next_sync_url = SyncSession.next_sync_url(mode)
+    def initialize(sync_type: nil, starting_sync_url: nil)
+      @starting_sync_url = starting_sync_url
+      @sync_type = sync_type
     end
 
     def fetch!
       SyncResponse.new Content.connection.get(resource)
     end
 
+    def sync_type
+      # So gross, but API is case sensitive here.
+      @sync_type == "deletion" ? "Deletion" : "all"
+    end
+
     private
 
     def resource
       if initial?
-        "/spaces/#{space}/sync?access_token=#{access_token}&initial=true&type=#{type}"
+        "/spaces/#{space}/sync?access_token=#{access_token}&initial=true&type=#{sync_type}"
       else
-        uri = URI.parse(next_sync_url)
+        uri = URI.parse(starting_sync_url)
         "#{uri.path}?#{uri.query}&access_token=#{access_token}"
       end
     end
 
     def initial?
-      !next_sync_url
-    end
-
-    def type
-      if 'delete' == @mode
-        'Deletion'
-      else
-        'all'
-      end
+      !starting_sync_url
     end
 
     def access_token; Content.configuration.access_token; end

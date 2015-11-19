@@ -1,20 +1,15 @@
 class ContentfulController < ActionController::Base
 
   def webhook
-    return unless topic_header = request.headers['X-Contentful-Topic']
+    return unless request.headers['X-Contentful-Topic']
 
-    if topic_header[/Entry/]
-      interactor = if topic_header[/unpublish/]
-        DeleteEntryFromRequest.call(params: params)
-      else
-        SyncEntryFromRequest.call(params: params)
-      end
-    elsif topic_header[/Asset/]
-      interactor = if topic_header[/unpublish/]
-        DeleteAssetFromRequest.call(params: params)
-      else
-        SyncAssetFromRequest.call(params: params)
-      end
+    raw_item = JSON.parse(response.body)
+    item = Contentful::Item.new(raw_item)
+
+    if item.record?
+      UpsertItem.call(item: item)
+    else
+      DeleteItem.call(item: item)
     end
 
     respond_to do |format|

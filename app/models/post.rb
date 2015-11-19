@@ -1,25 +1,4 @@
 class Post < ActiveRecord::Base
-  module Mapper
-    def to_hash
-      {
-        cid:                id,
-        title:              field(:title),
-        slug:               field(:slug),
-        author_cids:        extract_cids(field(:author)),
-        body:               field(:body),
-        category_cids:      extract_cids(field(:category)),
-        tags:               field(:tags),
-        featured_image_cid: extract_cid(field(:featuredImage)),
-        date:               field(:date),
-        comments:           field(:comments)
-      }
-    end
-  end
-
-  class ItemMapper < ::ItemMapper
-    include Post::Mapper
-  end
-
   include Syncable
 
   # Author & category data is cached with the post for speed
@@ -37,5 +16,20 @@ class Post < ActiveRecord::Base
 
   def featured_image
     Asset.find_by(cid: featured_image_cid)
+  end
+
+  def self.item_to_attributes(item)
+    {
+      cid:                item.id,
+      title:              item[:title],
+      slug:               item[:slug],
+      author_cids:        item[:author].map { |h| h['sys']['id'] },
+      body:               item[:body],
+      category_cids:      item[:category].map { |h| h['sys']['id'] },,
+      tags:               item[:tags],
+      featured_image_cid: item[:featuredImage]['sys']['id'],
+      date:               item[:date],
+      comments:           item[:comments]
+    }
   end
 end
