@@ -2,19 +2,15 @@ class Category < ActiveRecord::Base
   module Mapper
     def to_hash
       {
-        cid:               cid,
+        cid:               id,
         title:             field(:title),
-        icon_cid:          extract_object_cid(field(:icon))
+        icon_cid:          extract_cid(field(:icon))
       }
     end
   end
 
-  class ObjectMapper < ::ObjectMapper
-    include Category::Mapper
-  end
-
-  class RequestMapper < ::RequestMapper
-    include Category::Mapper
+  class ItemMapper < ::ItemMapper
+    include Post::Mapper
   end
 
   include Syncable

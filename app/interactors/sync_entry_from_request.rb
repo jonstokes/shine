@@ -1,7 +1,7 @@
 class SyncEntryFromRequest
   include Troupe
 
-  expects :params
+  expects :item
 
   def call
     if record = klass.find_by(cid: attrs[:cid])
@@ -14,13 +14,10 @@ class SyncEntryFromRequest
   end
 
   def attrs
-    @attrs ||= begin
-      mapper = "#{klass.name}::RequestMapper".constantize.new(params)
-      mapper.to_hash
-    end
+    @attrs ||= item.convert_to_attributes_hash
   end
 
   def klass
-    @klass ||= Content.cid_to_class_name(params['sys']['contentType']['sys']['id']).constantize
+    item.klass
   end
 end

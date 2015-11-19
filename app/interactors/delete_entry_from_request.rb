@@ -1,7 +1,7 @@
 class DeleteEntryFromRequest
   include Troupe
 
-  expects :params
+  expects :item
 
   def call
     context.fail!(error: 'record_not_found') and return unless record
@@ -9,12 +9,8 @@ class DeleteEntryFromRequest
   end
 
   def record
-    Post.find_by(cid: cid) ||
-      Author.find_by(cid: cid) ||
-      Category.find_by(cid: cid)
-  end
-
-  def cid
-    @cid ||= params['sys']['id']
+    Post.find_by(cid: item.id) ||
+      Author.find_by(cid: item.id) ||
+      Category.find_by(cid: item.id)
   end
 end

@@ -1,7 +1,7 @@
 class SyncAssetFromRequest
   include Troupe
 
-  expects :params
+  expects :item
 
   def call
     if record = Asset.find_by(cid: attrs[:cid])
@@ -14,6 +14,6 @@ class SyncAssetFromRequest
   end
 
   def attrs
-    @attrs ||= Asset::RequestMapper.new(params).to_hash
+    @attrs ||= item.convert_to_attributes_hash
   end
 end

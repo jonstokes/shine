@@ -2,25 +2,21 @@ class Post < ActiveRecord::Base
   module Mapper
     def to_hash
       {
-        cid:                cid,
+        cid:                id,
         title:              field(:title),
         slug:               field(:slug),
-        author_cids:        extract_object_cids(field(:author)),
+        author_cids:        extract_cids(field(:author)),
         body:               field(:body),
-        category_cids:      extract_object_cids(field(:category)),
+        category_cids:      extract_cids(field(:category)),
         tags:               field(:tags),
-        featured_image_cid: extract_object_cid(field(:featuredImage)),
+        featured_image_cid: extract_cid(field(:featuredImage)),
         date:               field(:date),
         comments:           field(:comments)
       }
     end
   end
 
-  class ObjectMapper < ::ObjectMapper
-    include Post::Mapper
-  end
-
-  class RequestMapper < ::RequestMapper
+  class ItemMapper < ::ItemMapper
     include Post::Mapper
   end
 
