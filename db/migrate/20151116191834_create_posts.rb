@@ -11,11 +11,12 @@ class CreatePosts < ActiveRecord::Migration
       t.string    :category_cids, null: false, array: true, default: []
       t.string    :tags,                       array: true, default: []
       t.string    :featured_image_cid
-      t.date      :date
+      t.date      :date,          null: false
       t.boolean   :comments,      null: false
 
       t.timestamps                null: false
     end
     add_index "posts", ["cid"], name: "index_posts_on_cid", unique: true, using: :btree
+    add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
   end
 end

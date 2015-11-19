@@ -22,9 +22,9 @@ class Post < ActiveRecord::Base
     {
       cid:                item.id,
       title:              item[:title],
-      slug:               item[:slug],
+      slug:               "#{item[:date].gsub("-","/")}/#{item[:slug]}",
       author_cids:        item[:author].map { |obj| extract_object_cid(obj) },
-      body:               item[:body],
+      body:               Kramdown::Document.new(item[:body]).to_html,
       category_cids:      item[:category].map { |obj| extract_object_cid(obj) },
       tags:               item[:tags],
       featured_image_cid: extract_object_cid(item[:featuredImage]),
