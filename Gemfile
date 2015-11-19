@@ -13,7 +13,7 @@ gem 'figaro'
 gem 'troupe'
 gem 'rest-client'
 gem 'kramdown'
-
+gem 'bh'
 gem 'alloutdoor', path: '../../alloutdoor'
 
 group :development, :test do
