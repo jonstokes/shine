@@ -8,9 +8,9 @@ class RunSyncSession
   end
 
   def call
-    return if SyncSession.in_progress?
+    return if SyncSession.sync_in_progress?
 
-    sync_each_item(sync_session) do |item|
+    sync_each_item do |item|
       if item.record?
         UpsertItem.call(item: item, sync_session_id: sync_session.id)
       else
@@ -25,10 +25,10 @@ class RunSyncSession
     )
   end
 
-  def sync_each_item(sync_session)
+  def sync_each_item
     request  = Content::SyncRequest.new(
       starting_sync_url: sync_session.starting_sync_url,
-      sync_type:         sync_session.sync_type
+      sync_type:         sync_session.mode
     )
     response = request.fetch!
 

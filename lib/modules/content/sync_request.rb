@@ -8,7 +8,7 @@ module Content
     end
 
     def fetch!
-      SyncResponse.new Content.connection.get(resource)
+      SyncResponse.new Content.connection[resource].get
     end
 
     def sync_type

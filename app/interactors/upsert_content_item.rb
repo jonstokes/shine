@@ -1,4 +1,4 @@
-class UpsertItem
+class UpsertContentItem
   include Troupe
 
   expects :item

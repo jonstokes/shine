@@ -1,4 +1,4 @@
-class DeleteItem
+class DeleteContentItem
   include Troupe
 
   expects :item

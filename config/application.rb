@@ -31,6 +31,6 @@ module Shine
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-    config.autoload_paths += [Rails.root.join('lib')]
+    config.autoload_paths += [Rails.root.join('lib'), Rails.root.join('lib', 'modules'), Rails.root.join('lib', 'modules', 'content')]
   end
 end

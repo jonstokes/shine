@@ -8,7 +8,7 @@ module Content
       Figaro.env.category_id => "Category"
     }
 
-    def initial(data)
+    def initialize(data)
       @data = data
     end
 
@@ -29,11 +29,11 @@ module Content
     end
 
     def record?
-      %w(Entry, Asset).include?(type)
+      %w(Entry Asset).include?(type)
     end
 
     def deletion?
-      %w(DeletedEntry, DeletedAsset).include?(type)
+      %w(DeletedEntry DeletedAsset).include?(type)
     end
 
     def klass
@@ -48,7 +48,7 @@ module Content
 
     def content_type_id
       return unless record?
-      sys['contentType']['id']
+      sys['contentType']['sys']['id']
     end
 
     def type
