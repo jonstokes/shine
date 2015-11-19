@@ -1,20 +1,18 @@
 class RunSyncSession
   include Troupe
+  attr_reader :sync_session
 
   permits(:mode) { "all" }
 
-  provides(:sync_session) do
-    SyncSession.create(status: "started", mode: mode)
-  end
-
   def call
     return if SyncSession.sync_in_progress?
-
+    @sync_session = SyncSession.create(status: "started", mode: mode)
     sync_each_item do |item|
+      binding.pry
       if item.record?
-        UpsertItem.call(item: item, sync_session_id: sync_session.id)
+        UpsertContentItem.call(item: item, sync_session_id: sync_session.id)
       else
-        DeleteItem.call(item: item)
+        DeleteContentItem.call(item: item)
       end
     end
     sync_session.update(status: "success")
@@ -32,13 +30,14 @@ class RunSyncSession
     )
     response = request.fetch!
 
-    while !response.completed? do
+    loop do
       response.items.each do |item|
         yield item
       end
       request  = Content::SyncRequest.new(starting_sync_url: response.next_page_url)
       response = request.fetch!
-    end
-    sync_session_id.update(next_sync_url: response.next_sync_url)
+    end while !response.completed?
+
+    sync_session.update(next_sync_url: response.next_sync_url)
   end
 end

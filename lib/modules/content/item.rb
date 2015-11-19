@@ -17,7 +17,7 @@ module Content
     end
 
     def [](name)
-      fields[name.to_s][Content.locale]
+      fields[name.to_s].try(:[], Content.locale)
     end
 
     def created_at

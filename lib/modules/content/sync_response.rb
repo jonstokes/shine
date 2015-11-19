@@ -19,7 +19,7 @@ module Content
     end
 
     def completed?
-      !!next_page_url
+      !next_page_url
     end
 
     def items
