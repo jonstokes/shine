@@ -29,16 +29,6 @@ ActiveRecord::Schema.define(version: 20151116225306) do
 
   add_index "assets", ["cid"], name: "index_assets_on_cid", unique: true, using: :btree
 
-  create_table "author_posts", id: :uuid, default: nil, force: :cascade do |t|
-    t.uuid     "author_id"
-    t.uuid     "post_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "author_posts", ["author_id"], name: "index_author_posts_on_author_id", using: :btree
-  add_index "author_posts", ["post_id"], name: "index_author_posts_on_post_id", using: :btree
-
   create_table "authors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "cid",               null: false
     t.uuid     "sync_session_id"
@@ -64,16 +54,6 @@ ActiveRecord::Schema.define(version: 20151116225306) do
 
   add_index "categories", ["cid"], name: "index_categories_on_cid", unique: true, using: :btree
 
-  create_table "category_posts", id: :uuid, default: nil, force: :cascade do |t|
-    t.uuid     "category_id"
-    t.uuid     "post_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "category_posts", ["category_id"], name: "index_category_posts_on_author_id", using: :btree
-  add_index "category_posts", ["post_id"], name: "index_category_posts_on_post_id", using: :btree
-
   create_table "posts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "cid",                             null: false
     t.uuid     "sync_session_id"
@@ -84,13 +64,14 @@ ActiveRecord::Schema.define(version: 20151116225306) do
     t.string   "category_cids",      default: [], null: false, array: true
     t.string   "tags",               default: [],              array: true
     t.string   "featured_image_cid"
-    t.date     "date"
+    t.date     "date",                            null: false
     t.boolean  "comments",                        null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end
 
   add_index "posts", ["cid"], name: "index_posts_on_cid", unique: true, using: :btree
+  add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
 
   create_table "sync_sessions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "status",        null: false
