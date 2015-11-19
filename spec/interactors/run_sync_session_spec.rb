@@ -1,39 +1,39 @@
 require 'spec_helper'
 
 describe RunSyncSession do
-  let(:asset) { asset_double }
-  let(:author) { author_double }
-  let(:category) { category_double }
-  let(:post) { post_double }
+  it "synchronizes the creation of entries and assets" do
+    delta_list = load_sync("all")
+    stub_request(:get, Regexp.new(Content.configuration.api_url)).
+      to_return(:body => delta_list.to_json)
 
-  it "synchronizes the creation and deletion of entries and assets" do
-    Content.delta_list = [
-      asset,
-      author,
-      category,
-      post
-    ]
+    expect { RunSyncSession.call(mode: "all") }.to change(SyncSession, :count).by(1)
 
-    RunSyncSession.call
-    expect(Asset.count).to eq(1)
-    expect(Author.count).to eq(1)
-    expect(Category.count).to eq(1)
-    expect(Post.count).to eq(1)
+    expect(Asset.count).to eq(6)
+    expect(Author.count).to eq(2)
+    expect(Category.count).to eq(2)
+    expect(Post.count).to eq(3)
 
-    expect(Post.first.title).to eq(post.fields[:title])
-    expect(Category.first.title).to eq(category.fields[:title])
+    sync_session = SyncSession.first
+    expect(sync_session.mode).to eq("all")
+    expect(sync_session.status).to eq("success")
+  end
 
-    Content.deletion_list = [
-      asset,
-      author,
-      category,
-      post
-    ]
+  it "synchronizes the deletion of assets" do
+    delta_list = load_sync("deletion")
+    stub_request(:get, Regexp.new(Content.configuration.api_url)).
+      to_return(:body => delta_list.to_json)
 
-    RunSyncSession.call
-    expect(Asset.count).to eq(0)
-    expect(Author.count).to eq(0)
+    create(:asset, cid: "7BCHkLHgIMuGSg2SqCQyaK")
+    create(:category, cid: "4Zk6ihvUM8Y0GcYiY24sq")
+
+    expect {
+      RunSyncSession.call(mode: "deletion")
+    }.to change(Asset, :count).by(-1)
+
     expect(Category.count).to eq(0)
-    expect(Post.count).to eq(0)
+    expect(SyncSession.count).to eq(1)
+    sync_session = SyncSession.first
+    expect(sync_session.mode).to eq("deletion")
+    expect(sync_session.status).to eq("success")
   end
 end

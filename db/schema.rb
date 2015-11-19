@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20151116225306) do
 
   add_index "assets", ["cid"], name: "index_assets_on_cid", unique: true, using: :btree
 
+  create_table "author_posts", id: :uuid, default: nil, force: :cascade do |t|
+    t.uuid     "author_id"
+    t.uuid     "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "author_posts", ["author_id"], name: "index_author_posts_on_author_id", using: :btree
+  add_index "author_posts", ["post_id"], name: "index_author_posts_on_post_id", using: :btree
+
   create_table "authors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "cid",               null: false
     t.uuid     "sync_session_id"
@@ -54,6 +64,16 @@ ActiveRecord::Schema.define(version: 20151116225306) do
 
   add_index "categories", ["cid"], name: "index_categories_on_cid", unique: true, using: :btree
 
+  create_table "category_posts", id: :uuid, default: nil, force: :cascade do |t|
+    t.uuid     "category_id"
+    t.uuid     "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "category_posts", ["category_id"], name: "index_category_posts_on_author_id", using: :btree
+  add_index "category_posts", ["post_id"], name: "index_category_posts_on_post_id", using: :btree
+
   create_table "posts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "cid",                             null: false
     t.uuid     "sync_session_id"
@@ -73,10 +93,12 @@ ActiveRecord::Schema.define(version: 20151116225306) do
   add_index "posts", ["cid"], name: "index_posts_on_cid", unique: true, using: :btree
 
   create_table "sync_sessions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "status"
+    t.string   "status",        null: false
     t.string   "error"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "mode",          null: false
+    t.string   "next_sync_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

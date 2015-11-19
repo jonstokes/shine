@@ -27,10 +27,11 @@ describe Post do
     end
   end
 
-  context "Mappers" do
-    let(:source) { JSON.load(Rails.root.join('spec', 'fixtures', 'requests', 'post', 'ContentManagement.Entry.publish.json')) }
-    let(:expected_hash) {
-      {
+  describe "mapping attributes" do
+    it "translates an post item into an attributes hash" do
+      item = Content::Item.new load_request(type: "post", action: "publish")
+
+      expect(Post.item_to_attributes(item)).to eq(
         cid:                "2gUGl8pte0ug8QwoisiiI0",
         title:              "This is a test entry",
         slug:               "this-is-a-test-entry",
@@ -41,29 +42,7 @@ describe Post do
         featured_image_cid: "2ReMHJhXoAcy4AyamgsgwQ",
         date:               "2015-11-17",
         comments:           true
-      }
-    }
-
-    describe RequestMapper do
-      describe "#to_hash" do
-        it "translates a webhook POST call's request body into an attributes hash" do
-          mapper = Post::RequestMapper.new(source)
-
-          expect(mapper.to_hash).to eq(expected_hash)
-        end
-      end
-    end
-
-    describe ObjectMapper do
-      describe "#to_hash" do
-        it "translates a Contentful::Entry object into an attributes hash" do
-          author = author_double(id: "5JQ715oDQW68k8EiEuKOk8")
-          category = category_double(id: "6XL7nwqRZ6yEw0cUe4y0y6")
-
-          mapper = Post::ObjectMapper.new(post_double(author: author, category: category))
-          expect(mapper.to_hash).to eq(expected_hash)
-        end
-      end
+      )
     end
   end
 end

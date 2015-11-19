@@ -4,7 +4,7 @@ describe "Webhooks" do
 
   describe "Posts" do
     it "can create a Post" do
-      create_post = load_source(type: "post", action: "publish")
+      create_post = load_request(type: "post", action: "publish")
 
       expect {
         post "/webhook", create_post, { 'X-Contentful-Topic' => 'ContentManagement.Entry.publish' }
@@ -12,7 +12,7 @@ describe "Webhooks" do
     end
 
     it "can delete a Post" do
-      delete_post = load_source(type: "post", action: "unpublish")
+      delete_post = load_request(type: "post", action: "unpublish")
       create(:post, cid: delete_post['sys']['id'])
 
       expect {
@@ -21,7 +21,7 @@ describe "Webhooks" do
     end
 
     it "can update a post" do
-      update_post = load_source(type: "post", action: "publish")
+      update_post = load_request(type: "post", action: "publish")
       create(:post, cid: update_post['sys']['id'])
 
       expect {
@@ -33,7 +33,7 @@ describe "Webhooks" do
 
   describe "Assets" do
     it "can create an Asset" do
-      create_asset = load_source(type: "asset", action: "publish")
+      create_asset = load_request(type: "asset", action: "publish")
 
       expect {
         post "/webhook", create_asset, { 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
@@ -41,7 +41,7 @@ describe "Webhooks" do
     end
 
     it "can delete an Asset" do
-      delete_asset = load_source(type: "asset", action: "unpublish")
+      delete_asset = load_request(type: "asset", action: "unpublish")
       create(:asset, cid: delete_asset['sys']['id'])
 
       expect {
@@ -50,7 +50,7 @@ describe "Webhooks" do
     end
 
     it "can update an Asset" do
-      update_asset = load_source(type: "asset", action: "publish")
+      update_asset = load_request(type: "asset", action: "publish")
       create(:asset, cid: update_asset['sys']['id'])
 
       expect {

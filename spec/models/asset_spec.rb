@@ -22,54 +22,26 @@ describe Asset do
     end
   end
 
-  context "Mappers" do
-    let(:expected_hash) {
-      {
+  describe "mapping attributes" do
+    it "translates an asset item into an attributes hash" do
+      item = Content::Item.new load_request(type: "asset", action: "publish")
+      expect(Asset.item_to_attributes(item)).to eq(
         cid: "7BCHkLHgIMuGSg2SqCQyaK",
         title: "Jon Stokes headshot",
         description: "My headshot from Wired",
         file: {
-          fileName: "headshot2.jpg",
-          contentType: "image/jpeg",
-          details: {
-            image: {
-              width: 402,
-              height: 604
+          "fileName" => "headshot2.jpg",
+          "contentType" => "image/jpeg",
+          "details" => {
+            "image" => {
+              "width" => 402,
+              "height" => 604
             },
-            size: 29962
+            "size" => 29962
           },
-          url: "//images.contentful.com/rwvjblw7dr6a/7BCHkLHgIMuGSg2SqCQyaK/d617beca0d5d5bc9fa7704be70883c12/headshot2.jpg"
+          "url" => "//images.contentful.com/rwvjblw7dr6a/7BCHkLHgIMuGSg2SqCQyaK/d617beca0d5d5bc9fa7704be70883c12/headshot2.jpg"
         }
-      }
-    }
-
-    describe RequestMapper do
-      describe "#to_hash" do
-        it "translates a webhook POST call's request body into an attributes hash" do
-          params = JSON.load(Rails.root.join('spec', 'fixtures', 'requests', 'asset', 'ContentManagement.Asset.publish.json'))
-          mapper = Asset::RequestMapper.new(params)
-          expected_hash[:file].deep_stringify_keys!
-          expect(mapper.to_hash).to eq(expected_hash)
-        end
-      end
-    end
-
-    describe ObjectMapper do
-      describe "#to_hash" do
-        it "translates a Contentful::Asset object into an attributes hash" do
-          mapper = Asset::ObjectMapper.new(
-            asset_double(
-              id: "7BCHkLHgIMuGSg2SqCQyaK",
-              fields: {
-                title: "Jon Stokes headshot",
-                description: "My headshot from Wired",
-                file: file_double(properties: expected_hash[:file])
-              }
-            )
-          )
-          expect(mapper.to_hash).to eq(expected_hash)
-        end
-      end
+      )
     end
   end
 end

@@ -18,44 +18,16 @@ describe Author do
     end
   end
 
-  context "Mappers" do
-    let(:expected_hash) {
-      {
+  describe "mapping attributes" do
+    it "translates an author item into an attributes hash" do
+      item = Content::Item.new load_request(type: "author", action: "publish")
+      expect(Author.item_to_attributes(item)).to eq(
         cid:               "3kTFGSVVi86OGOcA6ckqsk",
         name:              "Jon Stokes",
         website:           "http://jonstokes.com",
         biography:         "Jon Stokes is a swell guy.",
         profile_photo_cid: "2ReMHJhXoAcy4AyamgsgwQ"
-      }
-    }
-
-    describe RequestMapper do
-      describe "#to_hash" do
-        it "translates a webhook POST call's request body into an attributes hash" do
-          params = JSON.load(Rails.root.join('spec', 'fixtures', 'requests', 'author', 'ContentManagement.Entry.publish.json'))
-          mapper = Author::RequestMapper.new(params)
-          expect(mapper.to_hash).to eq(expected_hash)
-        end
-      end
-    end
-
-    describe ObjectMapper do
-      describe "#to_hash" do
-        it "translates a Contentful::Entry object into an attributes hash" do
-          mapper = Author::ObjectMapper.new(
-            author_double(
-              id: "3kTFGSVVi86OGOcA6ckqsk",
-              fields: {
-                name:          "Jon Stokes",
-                website:       "http://jonstokes.com",
-                biography:     "Jon Stokes is a swell guy.",
-                profile_photo: asset_double(id: "2ReMHJhXoAcy4AyamgsgwQ")
-              }
-            )
-          )
-          expect(mapper.to_hash).to eq(expected_hash)
-        end
-      end
+      )
     end
   end
 end
