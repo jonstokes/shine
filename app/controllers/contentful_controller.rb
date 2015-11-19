@@ -15,6 +15,6 @@ class ContentfulController < ActionController::Base
   end
 
   def item
-    Contentful::Item.new(params)
+    Content::Item.new(params)
   end
 end
