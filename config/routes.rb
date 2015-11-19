@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  mount Alloutdoor::Engine => "/blog"
-
-  root to: "posts#index"
+  mount Alloutdoor::Engine => "/"
 
   resources :categories, only: [:index, :show]
   resources :authors, only: [:index, :show]
