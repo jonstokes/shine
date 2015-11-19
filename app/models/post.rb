@@ -23,11 +23,11 @@ class Post < ActiveRecord::Base
       cid:                item.id,
       title:              item[:title],
       slug:               item[:slug],
-      author_cids:        item[:author].map { |h| h['sys']['id'] },
+      author_cids:        item[:author].map { |obj| extract_object_cid(obj) },
       body:               item[:body],
-      category_cids:      item[:category].map { |h| h['sys']['id'] },
+      category_cids:      item[:category].map { |obj| extract_object_cid(obj) },
       tags:               item[:tags],
-      featured_image_cid: item[:featuredImage]['sys']['id'],
+      featured_image_cid: extract_object_cid(item[:featuredImage]),
       date:               item[:date],
       comments:           item[:comments]
     }

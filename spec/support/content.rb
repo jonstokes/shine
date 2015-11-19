@@ -7,6 +7,16 @@ def load_request(type:, action:)
   JSON.load(Rails.root.join('spec', 'fixtures', 'requests', type, filename))
 end
 
+def load_sync(type)
+  JSON.load(Rails.root.join('spec', 'fixtures', 'sync', "#{type}.json"))
+end
+
+def item_json(klass:, action:)
+  if action == :publish
+  end
+end
+
+
 module Content
 
   def self.delta_list=(list)

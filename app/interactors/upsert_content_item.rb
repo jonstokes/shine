@@ -4,13 +4,10 @@ class UpsertContentItem
   expects :item
   permits :sync_session_id
 
-  provides(:attrs) do
-    a = klass.item_to_attributes(item)
-    a.merge!(sync_session_id: sync_session_id) if sync_session_id
-    a
-  end
-
   def call
+    attrs = klass.item_to_attributes(item)
+    attrs.merge!(sync_session_id: sync_session_id) if sync_session_id
+    
     if record = klass.find_by(cid: attrs[:cid])
       record.update(attrs)
     else

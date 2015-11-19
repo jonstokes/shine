@@ -9,7 +9,7 @@ module Content
     def body
       @body ||= JSON.parse(@response.body)
     end
-    
+
     def next_sync_url
       body['nextSyncUrl']
     end
@@ -25,6 +25,5 @@ module Content
     def items
       @items ||= body['items'].map { |i| Content::Item.new(i) }
     end
-
   end
 end
