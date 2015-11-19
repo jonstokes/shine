@@ -1,3 +1,7 @@
+PATH
+  remote: ../../alloutdoor
+  specs:
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -202,6 +206,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  alloutdoor!
   better_errors
   byebug
   coffee-rails (~> 4.1.0)
