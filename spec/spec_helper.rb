@@ -1,19 +1,21 @@
 ENV["RAILS_ENV"] ||= "test"
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../../test/dummy/config/environment.rb",  __FILE__)
 
 require "rspec/rails"
 require "factory_girl_rails"
 require "webmock/rspec"
 
+abort("The Rails environment is running in production mode!") if Rails.env.production?
+
+ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db/migrate", __FILE__)]
+ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', __FILE__)
 ActiveRecord::Migration.maintain_test_schema!
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+# Load support files
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  config.include(FactoryGirl::Syntax::Methods)
-  config.infer_spec_type_from_file_location!
-
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
@@ -22,11 +24,12 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.order = :random
+  config.include(FactoryGirl::Syntax::Methods)
 
-  # Seed global randomization in this process using the `--seed` CLI option.
-  # Setting this allows you to use `--seed` to deterministically reproduce
-  # test failures related to randomization by passing the same `--seed` value
-  # as the one that triggered the failure.
-  Kernel.srand config.seed
+  config.infer_spec_type_from_file_location!
+
+  # Filter lines from Rails gems in backtraces.
+  config.filter_rails_from_backtrace!
+
+  config.order = :random
 end

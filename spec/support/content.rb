@@ -4,11 +4,11 @@ def load_request(type:, action:)
   else
     "ContentManagement.Entry.#{action}.json"
   end
-  JSON.load(Rails.root.join('spec', 'fixtures', 'requests', type, filename))
+  JSON.load(Shine::Engine.root.join('spec', 'fixtures', 'requests', type, filename))
 end
 
 def load_sync(type)
-  JSON.load(Rails.root.join('spec', 'fixtures', 'sync', "#{type}.json"))
+  JSON.load(Shine::Engine.root.join('spec', 'fixtures', 'sync', "#{type}.json"))
 end
 
 def item_json(klass:, action:)
