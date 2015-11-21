@@ -35,6 +35,7 @@ FactoryGirl.define do
     sequence(:title) { |n| "Title #{n}" }
     sequence(:slug) { |n| "#{title.underscore}-#{n}" }
     author_cids { [create(:author).cid] }
+    sequence(:excerpt) { |n| "Excerpt #{n}" }
     sequence(:body) { |n| "Body #{n}" }
     category_cids { [create(:category).cid] }
     sequence(:tags) { |n| ["tag_#{n}"] }

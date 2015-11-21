@@ -17,6 +17,61 @@ ActiveRecord::Schema.define(version: 20151116225306) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
+  create_table "assets", force: :cascade do |t|
+    t.string   "cid",             null: false
+    t.uuid     "sync_session_id"
+    t.json     "file",            null: false
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "assets", ["cid"], name: "index_assets_on_cid", unique: true, using: :btree
+
+  create_table "authors", id: :uuid, default: nil, force: :cascade do |t|
+    t.string   "cid",               null: false
+    t.uuid     "sync_session_id"
+    t.string   "name",              null: false
+    t.string   "website"
+    t.string   "profile_photo_cid"
+    t.text     "biography"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "authors", ["cid"], name: "index_authors_on_cid", unique: true, using: :btree
+
+  create_table "categories", id: :uuid, default: nil, force: :cascade do |t|
+    t.string   "cid",               null: false
+    t.uuid     "sync_session_id"
+    t.string   "title",             null: false
+    t.text     "short_description"
+    t.string   "icon_cid"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "categories", ["cid"], name: "index_categories_on_cid", unique: true, using: :btree
+
+  create_table "posts", id: :uuid, default: nil, force: :cascade do |t|
+    t.string   "cid",                             null: false
+    t.uuid     "sync_session_id"
+    t.string   "title",                           null: false
+    t.string   "slug",                            null: false
+    t.string   "author_cids",        default: [], null: false, array: true
+    t.text     "body",                            null: false
+    t.string   "category_cids",      default: [], null: false, array: true
+    t.string   "tags",               default: [],              array: true
+    t.string   "featured_image_cid"
+    t.date     "date"
+    t.boolean  "comments",                        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "posts", ["cid"], name: "index_posts_on_cid", unique: true, using: :btree
+
   create_table "shine_assets", force: :cascade do |t|
     t.string   "cid",             null: false
     t.uuid     "sync_session_id"
@@ -60,6 +115,7 @@ ActiveRecord::Schema.define(version: 20151116225306) do
     t.string   "title",                           null: false
     t.string   "subtitle"
     t.text     "body",                            null: false
+    t.text     "excerpt",                         null: false
     t.string   "slug",                            null: false
     t.string   "tags",               default: [],              array: true
     t.date     "date",                            null: false
@@ -81,6 +137,13 @@ ActiveRecord::Schema.define(version: 20151116225306) do
     t.string   "next_sync_url"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "sync_sessions", id: :uuid, default: nil, force: :cascade do |t|
+    t.string   "status"
+    t.string   "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

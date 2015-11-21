@@ -37,6 +37,7 @@ describe Shine::Post do
         slug:               "2015/11/17/this-is-a-test-entry",
         author_cids:        ["5JQ715oDQW68k8EiEuKOk8"],
         body:               "<p>I am testing this entry.</p>\n\n<p><img src=\"//images.contentful.com/rwvjblw7dr6a/3S1ngcWajSia6I4sssQwyK/eacba4033620dcd5d36e985aa3271a55/Ernest_Hemingway_1950.jpg\" alt=\"Ernest Hemingway (1950)\" /></p>\n\n<p>That is a picture of Papa.</p>\n",
+        excerpt:            "This is a test of the excerpt",
         category_cids:      ["6XL7nwqRZ6yEw0cUe4y0y6"],
         tags:               ["foo", "bar"],
         featured_image_cid: "2ReMHJhXoAcy4AyamgsgwQ",

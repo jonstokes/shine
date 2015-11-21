@@ -42,6 +42,7 @@ class CreateShineTables < ActiveRecord::Migration
       t.string    :title,         null: false
       t.string    :subtitle
       t.text      :body,          null: false
+      t.text      :excerpt,       null: false
       t.string    :slug,          null: false
       t.string    :tags,                       array: true, default: []
       t.date      :date,          null: false
