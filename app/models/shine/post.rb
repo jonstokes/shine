@@ -8,15 +8,15 @@ module Shine
     validates :title, :slug, :body, presence: true
 
     def authors
-      Author.where(cid: author_cids)
+      Shine::Author.where(cid: author_cids)
     end
 
     def categories
-      Category.where(cid: category_cids)
+      Shine::Category.where(cid: category_cids)
     end
 
     def featured_image
-      Asset.find_by(cid: featured_image_cid)
+      Shine::Asset.find_by(cid: featured_image_cid)
     end
 
     def self.item_to_attributes(item)

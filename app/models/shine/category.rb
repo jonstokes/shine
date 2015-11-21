@@ -6,6 +6,10 @@ module Shine
       Post.where("'#{cid}' = ANY(category_cids)")
     end
 
+    def icon
+      @icon ||= Shine::Asset.find_by(cid: icon_cid)
+    end
+
     def self.item_to_attributes(item)
       {
         cid:      item.id,

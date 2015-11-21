@@ -8,6 +8,10 @@ module Shine
       Post.where("'#{cid}' = ANY(author_cids)")
     end
 
+    def profile_photo
+      @profile_photo ||= Shine::Asset.find_by(cid: profile_photo_cid)
+    end
+
     def self.item_to_attributes(item)
       {
         cid:               item.id,
