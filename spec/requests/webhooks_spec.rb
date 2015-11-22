@@ -7,7 +7,7 @@ describe "Webhooks" do
       create_post = load_request(type: "post", action: "publish")
 
       expect {
-        post "/shine/sync", create_post, { 'X-Contentful-Topic' => 'ContentManagement.Entry.publish' }
+        post "/shine/sync", create_post, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Entry.publish' }
       }.to change(Shine::Post, :count).by(1)
     end
 
@@ -16,7 +16,7 @@ describe "Webhooks" do
       create(:post, cid: delete_post['sys']['id'])
 
       expect {
-        post "/shine/sync", delete_post, { 'X-Contentful-Topic' => 'ContentManagement.Entry.unpublish' }
+        post "/shine/sync", delete_post, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Entry.unpublish' }
       }.to change(Shine::Post, :count).by(-1)
     end
 
@@ -25,7 +25,7 @@ describe "Webhooks" do
       create(:post, cid: update_post['sys']['id'])
 
       expect {
-        post "/shine/sync", update_post, { 'X-Contentful-Topic' => 'ContentManagement.Entry.publish' }
+        post "/shine/sync", update_post, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Entry.publish' }
       }.to change(Shine::Post, :count).by(0)
       expect(Shine::Post.first.title).to eq(update_post['fields']['title'][Shine.locale])
     end
@@ -36,7 +36,7 @@ describe "Webhooks" do
       create_asset = load_request(type: "asset", action: "publish")
 
       expect {
-        post "/shine/sync", create_asset, { 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
+        post "/shine/sync", create_asset, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
       }.to change(Shine::Asset, :count).by(1)
     end
 
@@ -45,7 +45,7 @@ describe "Webhooks" do
       create(:asset, cid: delete_asset['sys']['id'])
 
       expect {
-        post "/shine/sync", delete_asset, { 'X-Contentful-Topic' => 'ContentManagement.Asset.unpublish' }
+        post "/shine/sync", delete_asset, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Asset.unpublish' }
       }.to change(Shine::Asset, :count).by(-1)
     end
 
@@ -54,7 +54,7 @@ describe "Webhooks" do
       create(:asset, cid: update_asset['sys']['id'])
 
       expect {
-        post "/shine/sync", update_asset, { 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
+        post "/shine/sync", update_asset, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
       }.to change(Shine::Asset, :count).by(0)
       expect(Shine::Asset.first.title).to eq(update_asset['fields']['title'][Shine.locale])
     end
