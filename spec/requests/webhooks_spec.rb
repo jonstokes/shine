@@ -36,7 +36,7 @@ describe "Webhooks" do
       create_asset = load_request(type: "asset", action: "publish")
 
       expect {
-        post "/shine/sync", create_asset, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
+        post "/shine/sync", create_asset.as_json, { 'Content-Type' => 'application/vnd.contentful.management.v1+json', 'X-Contentful-Topic' => 'ContentManagement.Asset.publish' }
       }.to change(Shine::Asset, :count).by(1)
     end
 
