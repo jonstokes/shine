@@ -8,6 +8,7 @@ module Shine
     end
 
     def fetch!
+      Rails.logger.debug "# curl GET #{resource}"
       Shine::SyncResponse.new Shine.connection[resource].get
     end
 

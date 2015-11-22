@@ -10,7 +10,7 @@ namespace :shine do
     Shine::Author.delete_all
     Shine::Asset.delete_all
     Shine::Category.delete_all
-    Shine::RunSyncSession.call
+    Shine::RunSyncSession.call(initial: true)
   end
 
   desc "Synchronizes with contentful.com"
