@@ -21,4 +21,8 @@ Gem::Specification.new do |s|
   s.add_dependency "troupe"
   s.add_dependency "rest-client"
   s.add_dependency "kramdown"
+  s.add_dependency "font-awesome-sass", '~> 4.4.0'
+  s.add_dependency 'bootswatch-rails'
+  s.add_dependency 'bootstrap-sass', '~> 3.3.5'
+  s.add_dependency 'bh'
 end
