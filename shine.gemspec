@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootswatch-rails'
   s.add_dependency 'bootstrap-sass', '~> 3.3.5'
   s.add_dependency 'bh'
+  s.add_dependency 'react-rails', '~> 1.4.0'
 end

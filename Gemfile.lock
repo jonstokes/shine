@@ -10,6 +10,7 @@ PATH
       kramdown
       pg
       rails (~> 4.2.5)
+      react-rails (~> 1.4.0)
       rest-client
       troupe
 
@@ -56,6 +57,10 @@ GEM
     autoprefixer-rails (6.1.1)
       execjs
       json
+    babel-source (5.8.34)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -73,6 +78,8 @@ GEM
     builder (3.2.2)
     byebug (8.2.0)
     coderay (1.1.0)
+    coffee-script-source (1.10.0)
+    connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.1)
@@ -146,6 +153,13 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    react-rails (1.4.2)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.2)
+      tilt
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -178,6 +192,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
     thor (0.19.1)
     thread_safe (0.3.5)
+    tilt (2.0.1)
     troupe (0.1.0)
       interactor (~> 3.1)
     tzinfo (1.2.2)
