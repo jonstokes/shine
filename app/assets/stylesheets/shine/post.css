@@ -1,6 +1,7 @@
 #edit-post-wrapper {
     width: 100%;
-    padding: 0;
+    padding-top: 10pt;
+    padding-bottom: 10pt;
     background-color: white;
 }
 
