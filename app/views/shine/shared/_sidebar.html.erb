@@ -5,16 +5,16 @@
       <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-thumb-tack"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="demo" class="collapse">
         <li>
-          <a href="#">All</a>
+          <%= link_to 'All', posts_path %>
         </li>
         <li>
-          <a href="#">Pending</a>
+          <%= link_to 'Pending', posts_path(status: 'pending') %>
         </li>
         <li>
-          <a href="#">Drafts</a>
+          <%= link_to 'Drafts', posts_path(status: 'draft') %>
         </li>
         <li>
-          <a href="#">Published</a>
+          <%= link_to 'Published', posts_path(status: 'published') %>
         </li>
       </ul>
     </li>
@@ -25,7 +25,9 @@
       <a href="tables.html"><i class="fa fa-fw fa-globe"></i> Pages</a>
     </li>
     <li>
-      <a href="forms.html"><i class="fa fa-fw fa-list"></i> Categories</a>
+      <%= link_to(categories_path) do %>
+        <%= icon('list') %>&nbsp;Categories
+      <% end %>
     </li>
     <li>
       <a href="forms.html"><i class="fa fa-fw fa-user"></i> Users</a>

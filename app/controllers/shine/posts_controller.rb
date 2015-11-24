@@ -6,7 +6,13 @@ module Shine
 
     # GET /posts
     def index
-      @posts = Shine::Post.all
+      @posts = if params[:status]
+        @subtitle = params[:status].capitalize
+        Shine::Post.where(status: params[:status].downcase)
+      else
+        @subtitle = 'All'
+        Shine::Post.all
+      end
     end
 
     # GET /posts/1
