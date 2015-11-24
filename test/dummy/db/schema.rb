@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151124164133) do
     t.uuid     "user_ids",          default: [], null: false, array: true
     t.uuid     "category_ids",      default: [], null: false, array: true
     t.string   "status",                         null: false
+    t.datetime "published_at"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end

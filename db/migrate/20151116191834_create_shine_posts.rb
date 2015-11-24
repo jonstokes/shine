@@ -12,6 +12,8 @@ class CreateShinePosts < ActiveRecord::Migration
       t.uuid      :user_ids,      null: false, array: true, default: []
       t.uuid      :category_ids,  null: false, array: true, default: []
       t.string    :status,        null: false
+      
+      t.datetime  :published_at
       t.timestamps                null: false
     end
     add_index "shine_posts", ["slug"], name: "index_shine_posts_on_slug", unique: true, using: :btree
