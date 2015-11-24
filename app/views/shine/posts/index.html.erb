@@ -21,8 +21,16 @@
               <td><%= post.users.first.name %></td>
               <td><%= post.categories.first.title %></td>
               <td><%= post.updated_at %></td>
-              <td><%= link_to 'Edit', edit_post_path(post) %></td>
-              <td><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td>
+                <%= link_to edit_post_path(post) do %>
+                  <%= icon('edit') %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to(post, method: :delete, data: { confirm: 'Are you sure?' }) do %>
+                  <%= icon('remove') %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
