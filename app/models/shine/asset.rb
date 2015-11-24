@@ -1,20 +1,13 @@
 module Shine
   class Asset < ActiveRecord::Base
-    include Shine::Concerns::Syncable
+    belongs_to :post
+    belongs_to :user
 
-    validates :file, presence: true
+    validates :file,    presence: true
+    validates :user_id, presence: true, format: UUID_REGEXP
 
     def url
       "https:#{file['url']}"
-    end
-
-    def self.item_to_attributes(item)
-      {
-        cid:         item.id,
-        file:        item[:file],
-        title:       item[:title],
-        description: item[:description]
-      }
     end
   end
 end

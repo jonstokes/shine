@@ -1,21 +1,15 @@
 module Shine
   class Category < ActiveRecord::Base
-    include Shine::Concerns::Syncable
 
+    validates :title,   presence: true
+    validates :icon_id, presence: true, format: UUID_REGEXP
+    
     def posts
-      Post.where("'#{cid}' = ANY(category_cids)")
+      Post.where("'#{id}' = ANY(category_ids)")
     end
 
     def icon
-      @icon ||= Shine::Asset.find_by(cid: icon_cid)
-    end
-
-    def self.item_to_attributes(item)
-      {
-        cid:      item.id,
-        title:    item[:title],
-        icon_cid: extract_object_cid(item[:icon])
-      }
+      @icon ||= Shine::Asset.find_by(id: icon_id)
     end
   end
 end
