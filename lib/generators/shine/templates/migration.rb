@@ -36,7 +36,7 @@ class CreateShineTables < ActiveRecord::Migration
       t.datetime  :published_at
       t.timestamps                null: false
     end
-    
+
     add_index "shine_posts", ["slug"], name: "index_shine_posts_on_slug", unique: true, using: :btree
 
     create_table :shine_users, id: :uuid do |t|
@@ -65,6 +65,8 @@ class CreateShineTables < ActiveRecord::Migration
       t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## CMS
+      t.string :name,           null: false
+      t.string :display_email
       t.string :role,           null: false
       t.text   :biography,      null: false
       t.uuid   :profile_photo_id
@@ -74,6 +76,7 @@ class CreateShineTables < ActiveRecord::Migration
     end
 
     add_index :shine_users, :email,                unique: true
+    add_index :shine_users, :display_email,        unique: true
     add_index :shine_users, :reset_password_token, unique: true
     add_index :shine_users, :confirmation_token,   unique: true
   end

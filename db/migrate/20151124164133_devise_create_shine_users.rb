@@ -33,16 +33,11 @@ class DeviseCreateShineUsers < ActiveRecord::Migration
       t.uuid   :profile_photo_id
       t.jsonb  :social # twitter, website, G+, etc.
 
-      ## Lockable
-      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
-      # t.string   :unlock_token # Only if unlock strategy is :email or :both
-      # t.datetime :locked_at
-
-
       t.timestamps null: false
     end
 
     add_index :shine_users, :email,                unique: true
+    add_index :shine_users, :display_email,        unique: true
     add_index :shine_users, :reset_password_token, unique: true
     add_index :shine_users, :confirmation_token,   unique: true
   end
