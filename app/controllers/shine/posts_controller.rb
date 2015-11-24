@@ -57,7 +57,7 @@ module Shine
 
       # Only allow a trusted parameter "white list" through.
       def post_params
-        params[:post].permit(Shine::Post.attributes.keys)
+        params[:post].permit(Shine::Post.attribute_names)
       end
   end
 end
