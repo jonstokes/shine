@@ -26,6 +26,8 @@ class DeviseCreateShineUsers < ActiveRecord::Migration
       t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## CMS
+      t.string :name,           null: false
+      t.string :display_email
       t.string :role,           null: false
       t.text   :biography,      null: false
       t.uuid   :profile_photo_id
