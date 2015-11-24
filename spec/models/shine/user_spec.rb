@@ -1,7 +1,20 @@
-require 'rails_helper'
+require 'spec_helper'
 
-module Shine
-  RSpec.describe User, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+describe Shine::User do
+
+  context "validations" do
+    subject { create(:user) }
+
+    it { is_expected.to be_valid }
+
+    it "requires an email" do
+      subject.email = nil
+      expect(subject).not_to be_valid
+    end
+
+    it "requires a name" do
+      subject.name = nil
+      expect(subject).not_to be_valid
+    end
   end
 end

@@ -12,6 +12,7 @@ module Shine
     validates :encrypted_password, presence: true
     validates :role,               presence: true, inclusion: { in: %w(admin editor writer) }
     validates :biography,          presence: true
+    validates :name,               presence: true
     
     def posts
      Post.where("'#{id}' = ANY(user_ids)")
