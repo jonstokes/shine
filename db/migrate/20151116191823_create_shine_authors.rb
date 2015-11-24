@@ -1,12 +1,9 @@
 class CreateShineAuthors < ActiveRecord::Migration
   def change
     create_table :shine_authors, id: :uuid do |t|
-      t.string :cid, null: false
-      t.uuid   :sync_session_id
-
-      t.string :name, null: false
+      t.uuid   :user_id, null: false
       t.string :website
-      t.string :profile_photo_cid
+      t.string :profile_photo_id
       t.text   :biography
 
       t.timestamps null: false
