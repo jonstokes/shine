@@ -3,7 +3,6 @@ require_dependency "shine/application_controller"
 module Shine
   class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
-    layout 'shine/edit_post', only: [:edit]
 
     # GET /posts
     def index
