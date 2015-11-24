@@ -13,7 +13,15 @@ module Shine
     validates :role,               presence: true, inclusion: { in: %w(admin editor writer) }
     validates :biography,          presence: true
     validates :name,               presence: true
-    
+
+    def display_email
+      self[:display_email] || self[:email]
+    end
+
+    def find_by_email(email_address)
+      find_by(email: email_address) || find_by(display_email: email_address)
+    end
+
     def posts
      Post.where("'#{id}' = ANY(user_ids)")
     end
