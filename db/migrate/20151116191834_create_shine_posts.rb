@@ -8,9 +8,9 @@ class CreateShinePosts < ActiveRecord::Migration
       t.string    :slug,          null: false
       t.string    :tags,                       array: true, default: []
       t.boolean   :comments,      null: false
-      t.string    :featured_image_id
-      t.string    :author_ids,    null: false, array: true, default: []
-      t.string    :category_ids,  null: false, array: true, default: []
+      t.uuid      :featured_image_id
+      t.uuid      :user_ids,      null: false, array: true, default: []
+      t.uuid      :category_ids,  null: false, array: true, default: []
       t.string    :status,        null: false
       t.timestamps                null: false
     end
