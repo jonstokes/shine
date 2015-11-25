@@ -20,6 +20,13 @@ module Shine
       end
     end
 
+    def copy_uploadcare_file
+      source = File.open(Shine::Engine.root.join("config", "uploadcare.yml")) { |f| f.read }
+      destination = Rails.root.join("config", "uploadcare.yml")
+
+      create_file destination, source
+    end
+
     def create_migration_file
       migration_template "migration.rb", "db/migrate/create_shine_tables.rb"
     end

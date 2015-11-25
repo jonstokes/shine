@@ -9,6 +9,7 @@ require 'bootstrap-sass'
 require 'bh'
 require 'react-rails'
 require 'devise'
+require 'uploadcare-rails'
 
 Dir["#{File.dirname(__FILE__)}/config/initializers/**/*.rb"].each { |f| require f }
 
