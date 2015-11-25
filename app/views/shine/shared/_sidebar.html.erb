@@ -1,7 +1,7 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
   <ul class="nav navbar-nav side-nav">
-    <li class="active">
+    <li <%= 'class=active' if controller_name == "posts" %>>
       <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-thumb-tack"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="demo" class="collapse">
         <li>
@@ -18,20 +18,20 @@
         </li>
       </ul>
     </li>
-    <li>
+    <li <%= 'class=active' if controller_name == "assets" %>>
       <%= link_to assets_path do %>
         <i class="fa fa-fw fa-image"></i>&nbsp;Media
       <%  end %>
     </li>
-    <li>
+    <li <%= 'class=active' if controller_name == "pages" %>>
       <a href="tables.html"><i class="fa fa-fw fa-globe"></i> Pages</a>
     </li>
-    <li>
+    <li <%= 'class=active' if controller_name == "categories" %>>
       <%= link_to(categories_path) do %>
         <%= icon('list') %>&nbsp;Categories
       <% end %>
     </li>
-    <li>
+    <li <%= 'class=active' if controller_name == "users" %>>
       <a href="forms.html"><i class="fa fa-fw fa-user"></i> Users</a>
     </li>
   </ul>
