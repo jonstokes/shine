@@ -95,9 +95,13 @@ ActiveRecord::Schema.define(version: 20151124164133) do
   create_table "shine_assets", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.json     "file",        null: false
     t.string   "title"
+    t.text     "credit"
+    t.text     "caption"
     t.text     "description"
+    t.text     "alt_text"
     t.uuid     "post_id"
     t.uuid     "user_id",     null: false
+    t.datetime "uploaded_at", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
