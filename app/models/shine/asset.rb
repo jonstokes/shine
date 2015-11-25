@@ -16,5 +16,13 @@ module Shine
     def url
       file['url']
     end
+
+    def thumbnail_url
+      "#{url}-/preview/100x100/"
+    end
+
+    def preview_url
+      "#{url}-/preview/300x500/"
+    end
   end
 end

@@ -17,7 +17,7 @@
         <tbody>
           <% @assets.each do |asset| %>
             <tr>
-              <td><span class="shine-asset-preview"><%= image_tag(asset.url) %></span></td>
+              <td><%= image_tag(asset.thumbnail_url) %></td>
               <td><%= link_to asset.title, asset.url %></td>
               <td><%= asset.description %></td>
               <td><%= asset.created_at %></td>
