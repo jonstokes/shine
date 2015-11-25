@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'react-rails', '~> 1.4.0'
   s.add_dependency 'devise', '~> 3.5.0'
   s.add_dependency 'uploadcare-rails', "~> 1.0"
+  s.add_dependency 'tinymce-rails'
 end

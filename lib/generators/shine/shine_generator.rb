@@ -27,6 +27,13 @@ module Shine
       create_file destination, source
     end
 
+    def copy_tinymce_file
+      source = File.open(Shine::Engine.root.join("config", "tinymce.yml")) { |f| f.read }
+      destination = Rails.root.join("config", "tinymce.yml")
+
+      create_file destination, source
+    end
+
     def create_migration_file
       migration_template "migration.rb", "db/migrate/create_shine_tables.rb"
     end

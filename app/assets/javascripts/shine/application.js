@@ -15,4 +15,5 @@
 //= require jquery_ujs
 //= require react
 //= require react_ujs
+//= require tinymce-jquery
 //= require_tree .

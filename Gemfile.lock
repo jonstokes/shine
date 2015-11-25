@@ -14,6 +14,7 @@ PATH
       react-rails (~> 1.4.0)
       rest-client
       sass-rails
+      tinymce-rails
       troupe
       uploadcare-rails (~> 1.0)
 
@@ -218,6 +219,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
+    tinymce-rails (4.3.0)
+      railties (>= 3.1.1)
     troupe (0.1.0)
       interactor (~> 3.1)
     tzinfo (1.2.2)
