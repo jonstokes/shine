@@ -1,6 +1,6 @@
 toolbar:
   - styleselect | bold italic | undo redo
-  - image | link
+  - uploadcare | link
 plugins:
-  - image
+  - uploadcare
   - link
