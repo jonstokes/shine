@@ -1,6 +1,4 @@
-<h1>Editing Asset</h1>
+<%= render partial: "shine/shared/heading", locals: { title: "Edit Asset", subtitle: @asset.title } %>
+<%= render "shine/shared/notice" %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @asset %> |
-<%= link_to 'Back', assets_path %>

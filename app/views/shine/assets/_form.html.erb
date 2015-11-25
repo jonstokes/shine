@@ -1,17 +1,39 @@
-<%= form_for(@asset) do |f| %>
-  <% if @asset.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+<div id="asset-edit" class="col-lg-6">
+  <%= form_for(@asset) do |f| %>
+    <% if @asset.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
 
-      <ul>
-      <% @asset.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @asset.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if @asset.url %>
+      <div class="form-group">
+        <span class="uploadcare-preview"><%= image_tag @asset.url %></span>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :file_url %>
+      <%= f.uploadcare_field :file_url %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control", rows: 5 %>
+    </div>
+
+    <%= f.submit class: "btn btn-default" %>
+  <% end %>
+</div>
+

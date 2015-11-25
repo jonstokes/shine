@@ -56,7 +56,7 @@ module Shine
 
       # Only allow a trusted parameter "white list" through.
       def asset_params
-        params[:asset]
+        params[:asset].permit(:file_url, :title, :description)
       end
   end
 end

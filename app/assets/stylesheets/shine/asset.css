@@ -2,3 +2,7 @@
   width: 60px;
   height: 60px;
 }
+.uploadcare-preview img{
+  width: 200px;
+  height: 200px;
+}
