@@ -24,12 +24,19 @@ module Shine
 
     # POST /assets
     def create
-      @asset = Asset.new(asset_params)
+      @asset = Asset.new(asset_params.merge(uploaded_at: Time.current, post_id: params[:post_id]))
+      
+      @asset.title ||= "Temp"            # TODO: don't require title
+      @asset.user_id = SecureRandom.uuid # TODO: implement devise
 
-      if @asset.save
-        redirect_to @asset, notice: 'Asset was successfully created.'
-      else
-        render :new
+      respond_to do |format|
+        if @asset.save
+          format.html { redirect_to @asset, notice: 'Asset was successfully created.' }
+          format.json { render nothing: true }
+        else
+          format.html { render :new }
+          format.json { render nothing: true }
+        end
       end
     end
 
@@ -56,7 +63,7 @@ module Shine
 
       # Only allow a trusted parameter "white list" through.
       def asset_params
-        params[:asset].permit(:file_url, :title, :description)
+        params[:asset].permit(:file_url, :title, :description, :post_id, :user_id)
       end
   end
 end
