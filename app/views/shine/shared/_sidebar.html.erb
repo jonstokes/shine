@@ -2,7 +2,7 @@
 <div class="collapse navbar-collapse navbar-ex1-collapse">
   <ul class="nav navbar-nav side-nav">
     <li <%= 'class=active' if controller_name == "posts" %>>
-      <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-thumb-tack"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+      <a href="javascript:;" data-toggle="collapse" data-target="#demo"><%= icon('clone') %>&nbsp;Posts&nbsp;<%= icon('caret-down') %></a>
       <ul id="demo" class="collapse">
         <li>
           <%= link_to 'All', posts_path %>
@@ -20,7 +20,7 @@
     </li>
     <li <%= 'class=active' if controller_name == "assets" %>>
       <%= link_to assets_path do %>
-        <i class="fa fa-fw fa-image"></i>&nbsp;Media
+        <%= icon('image') %>&nbsp;Media
       <%  end %>
     </li>
     <li <%= 'class=active' if controller_name == "pages" %>>
@@ -28,11 +28,11 @@
     </li>
     <li <%= 'class=active' if controller_name == "categories" %>>
       <%= link_to(categories_path) do %>
-        <%= icon('list') %>&nbsp;Categories
+        <%= icon('thumb-tack') %> Categories
       <% end %>
     </li>
     <li <%= 'class=active' if controller_name == "users" %>>
-      <a href="forms.html"><i class="fa fa-fw fa-user"></i> Users</a>
+      <a href="forms.html"><%= icon("user") %> Users</a>
     </li>
   </ul>
 </div>

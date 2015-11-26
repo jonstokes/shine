@@ -4,13 +4,13 @@ require 'figaro'
 require 'troupe'
 require 'kramdown'
 require 'rest_client'
-require "font-awesome-sass"
 require 'bootswatch-rails'
 require 'bootstrap-sass'
 require 'bh'
 require 'react-rails'
 require 'uploadcare-rails'
 require 'tinymce-rails'
+require "font-awesome-sass"
 
 Dir["#{File.dirname(__FILE__)}/config/initializers/**/*.rb"].each { |f| require f }
 
