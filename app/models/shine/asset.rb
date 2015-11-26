@@ -3,6 +3,8 @@ module Shine
     belongs_to :post
     belongs_to :user
 
+    attr_reader :file_url
+
     after_destroy :remove_from_uploadcare, :update_content
 
     validates :file,        presence: true
@@ -13,6 +15,19 @@ module Shine
 
     def url
       "http://www.ucarecdn.com/#{file['id']}/"
+    end
+
+    def file_url=(value)
+      return unless value.present?
+      uploadcare_id = value.split("/")[3]
+      cdn_file = UPLOADCARE_SETTINGS.api.file(uploadcare_id)
+      cdn_file.load_data!
+      self.file = {
+        id:        file.uuid,
+        mime_type: file.mime_type,
+        name:      file.original_filename,
+        source:    file.source
+      }.merge(file.image_info)
     end
 
     def thumbnail_url
