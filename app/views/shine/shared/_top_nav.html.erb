@@ -23,7 +23,7 @@
         <a href="#"><i class="fa fa-fw fa-globe"></i> Page</a>
       </li>
       <li>
-        <a href="#"><i class="fa fa-fw fa-user"></i> User</a>
+        <a href="#"><i class="fa fa-fw fa-user-plus"></i> User</a>
       </li>
     </ul>
   </li>
@@ -49,7 +49,7 @@
         </ul>
       <% end %>
     <% else %>
-      <i class="fa fa-user"></i> <%= link_to "Log In", "shine/users/sign_in" %></b>
+      <%= icon("sign-in") %>&nbsp;<%= link_to "Log In", new_user_session_path %></b>
     <% end %>
   </li>
 </ul>
