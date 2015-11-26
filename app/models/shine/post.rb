@@ -21,5 +21,9 @@ module Shine
     def featured_image
       Shine::Asset.find_by(id: featured_image_id)
     end
+
+    def featured_image_url
+      featured_image.try(:url)
+    end
   end
 end

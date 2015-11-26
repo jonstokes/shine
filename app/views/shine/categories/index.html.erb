@@ -19,7 +19,7 @@
             <tr>
               <td><%= link_to category.title, "/#{category}" %></td>
               <td><%= category.short_description %></td>
-              <td><span class="shine-icon-category"><%= image_tag(category.icon.url) %></span></td>
+              <td><span class="shine-icon-category"><%= image_tag(category.icon_url) %></span></td>
               <td><%= category.created_at %></td>
               <td>
                 <%= link_to edit_category_path(category) do %>

@@ -5,7 +5,7 @@ class CreateShineTables < ActiveRecord::Migration
     create_table :shine_categories, id: :uuid do |t|
       t.string :title,            null: false
       t.text   :short_description
-      t.uuid   :icon_id,          null: false
+      t.uuid   :icon_id
 
       t.timestamps                null: false
     end

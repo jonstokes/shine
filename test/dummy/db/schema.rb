@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20151124164133) do
   create_table "shine_categories", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "title",             null: false
     t.text     "short_description"
-    t.uuid     "icon_id",           null: false
+    t.uuid     "icon_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
