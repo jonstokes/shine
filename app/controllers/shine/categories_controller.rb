@@ -56,7 +56,7 @@ module Shine
 
       # Only allow a trusted parameter "white list" through.
       def category_params
-        params[:category]
+        params[:category].permit(:title, :icon_url, :short_description)
       end
   end
 end

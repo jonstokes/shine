@@ -1,5 +1,7 @@
 module Shine
   class User < ActiveRecord::Base
+    include Shine::Concerns::AssetMountable
+
     has_many :assets
 
     # Include default devise modules. Others available are:
@@ -13,6 +15,8 @@ module Shine
     validates :role,               presence: true, inclusion: { in: %w(admin editor writer) }
     validates :biography,          presence: true
     validates :name,               presence: true
+
+    mount_asset :profile_photo
 
     def display_email
       self[:display_email] || self[:email]

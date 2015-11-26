@@ -24,9 +24,8 @@ module Shine
 
     # POST /assets
     def create
-      @asset = Asset.new(
+      create_asset = CreateAssetFromUploadcareUrl.call(
         asset_params.merge(
-          uploaded_at: Time.current,
           post_id: params[:post_id],
           user_id: current_user.id
         )
@@ -66,7 +65,7 @@ module Shine
 
       # Only allow a trusted parameter "white list" through.
       def asset_params
-        params[:asset].permit(:file_url, :file_id, :file_name, :file_size, :file_source, :title, :description, :post_id, :user_id)
+        params[:asset].permit(:file_url, :title, :description)
       end
   end
 end

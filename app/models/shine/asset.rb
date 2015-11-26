@@ -3,43 +3,13 @@ module Shine
     belongs_to :post
     belongs_to :user
 
-    attr_reader :file_url, :file_id, :file_name, :file_source, :file_size
-
     after_destroy :remove_from_uploadcare, :update_content
 
-    validates :file,    presence: true
-    validates :user_id, presence: true, format: UUID_REGEXP
+    validates :file,        presence: true
+    validates :user_id,     presence: true, format: UUID_REGEXP
+    validates :uploaded_at, presence: true
 
     after_initialize { self.file ||= {} }
-
-    %w(file_id file_name file_source file_size).each do |key|
-      attribute = key.split("_").last
-      define_method key do
-        file[attribute]
-      end
-    end
-
-    def file_url=(value)
-      return unless value.present?
-      value = value.split("/")[3]
-      set_file_attribute('id', value)
-    end
-
-    def file_id=(value)
-      set_file_attribute('id', value)
-    end
-
-    def file_name=(value)
-      set_file_attribute('name', value)
-    end
-
-    def file_source=(value)
-      set_file_attribute('source', value)
-    end
-
-    def file_size=(value)
-      set_file_attribute('size', value)
-    end
 
     def url
       "http://www.ucarecdn.com/#{file['id']}/"
@@ -65,12 +35,6 @@ module Shine
       UPLOADCARE_SETTINGS.api.file(file_id).delete
     rescue Uploadcare::Error::RequestError::NotFound
       true
-    end
-
-    def set_file_attribute(attribute, value)
-      return unless value.present?
-      self.file ||= {}
-      self.file.merge!(attribute => value)
     end
   end
 end
