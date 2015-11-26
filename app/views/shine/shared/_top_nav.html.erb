@@ -42,7 +42,7 @@
           </li>
           <li class="divider"></li>
           <li>
-            <%= link_to destroy_user_session_path do %>
+            <%= link_to destroy_user_session_path, method: 'delete' do %>
               <%= icon('power-off') %>&nbsp;Log Out
             <% end %>
           </li>
