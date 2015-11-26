@@ -3,15 +3,26 @@ module Shine
     belongs_to :post
     belongs_to :user
 
-    attr_reader :file_id, :file_name, :file_source, :file_size
+    attr_reader :file_url, :file_id, :file_name, :file_source, :file_size
+
+    after_destroy :remove_from_uploadcare, :update_content
 
     validates :file,    presence: true
     validates :user_id, presence: true, format: UUID_REGEXP
 
-    def set_file_attribute(attribute, value)
+    after_initialize { self.file ||= {} }
+
+    %w(file_id file_name file_source file_size).each do |key|
+      attribute = key.split("_").last
+      define_method key do
+        file[attribute]
+      end
+    end
+
+    def file_url=(value)
       return unless value.present?
-      self.file ||= {}
-      self.file.merge!(attribute => value)
+      value = value.split("/")[3]
+      set_file_attribute('id', value)
     end
 
     def file_id=(value)
@@ -40,6 +51,26 @@ module Shine
 
     def preview_url
       "#{url}-/preview/300x500/"
+    end
+
+    private
+
+    def update_content
+      Post.where(featured_image_id: id).update_all(featured_image_id: nil)
+      Category.where(icon_id: id).update_all(icon_id: nil)
+      User.where(profile_photo_id: id).update_all(profile_photo_id: nil)
+    end
+
+    def remove_from_uploadcare
+      UPLOADCARE_SETTINGS.api.file(file_id).delete
+    rescue Uploadcare::Error::RequestError::NotFound
+      true
+    end
+
+    def set_file_attribute(attribute, value)
+      return unless value.present?
+      self.file ||= {}
+      self.file.merge!(attribute => value)
     end
   end
 end
