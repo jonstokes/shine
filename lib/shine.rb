@@ -1,3 +1,4 @@
+require 'devise'
 require "shine/engine"
 require 'figaro'
 require 'troupe'
@@ -8,7 +9,6 @@ require 'bootswatch-rails'
 require 'bootstrap-sass'
 require 'bh'
 require 'react-rails'
-require 'devise'
 require 'uploadcare-rails'
 require 'tinymce-rails'
 
