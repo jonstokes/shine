@@ -28,10 +28,18 @@
       <%= tinymce %>
     </div>
 
+    <% if @post.featured_image_url %>
+      <div class="form-group">
+        <%= image_tag @post.featured_image_url %>
+      </div>
+    <% end %>
+
     <div class="form-group">
-      <%= f.label :featured_image %>
-      <%= f.file_field :featured_image %>
+      <%= f.label :featured_image_url %>
+      <%= f.uploadcare :featured_image_url %>
     </div>
+
+    <%= f.hidden_field(:asset_user_id, current_user.id) %>
 
     <div class="form-group">
       <%= f.label :comments %>

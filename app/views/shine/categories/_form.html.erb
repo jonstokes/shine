@@ -17,10 +17,18 @@
       <%= f.text_field :title, class: "form-control" %>
     </div>
 
+    <% if @category.icon_url %>
+      <div class="form-group">
+        <%= image_tag @category.icon_url %>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <%= f.label :icon_url %>
       <%= f.uploadcare_field :icon_url %>
     </div>
+
+    <%= f.hidden_field(:asset_user_id, current_user.id) %>
 
     <div class="form-group">
       <%= f.label :short_description %>

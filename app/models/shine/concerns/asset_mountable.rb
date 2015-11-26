@@ -5,6 +5,7 @@ module Shine
 
       included do
         extend ClassMethods
+        attr_accessor :asset_user_id
       end
 
       module ClassMethods
@@ -24,7 +25,7 @@ module Shine
           define_method "#{attribute_name}_url=" do |value|
             # TODO: Needs a way to get user_id in there
             next unless value.present?
-            create_asset = CreateAssetFromUploadcareUrl.call(file_url: value)
+            create_asset = CreateAssetFromUploadcareUrl.call(file_url: value, user_id: asset_user_id)
             self.send("#{attribute_name}_id=", create_asset.asset.id) if create_asset.success?
           end
         end
