@@ -1,5 +1,6 @@
 Shine::Engine.routes.draw do
-  devise_for :users, class_name: "Shine::User"
+  devise_for :users, class_name: "Shine::User", module: :devise
+
   post "/sync" => "contentful#sync", defaults: { format: :json }
 
   resources :posts do
